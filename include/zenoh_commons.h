@@ -426,13 +426,6 @@ typedef struct z_allocated_chunk_t {
   void *data;
 } z_allocated_chunk_t;
 #endif
-/**
- * Monotonic clock
- */
-typedef struct z_clock_t {
-  uint64_t t;
-  const void *t_base;
-} z_clock_t;
 typedef struct z_moved_session_t {
   struct z_owned_session_t _this;
 } z_moved_session_t;
@@ -1107,12 +1100,6 @@ typedef struct z_moved_task_t {
 typedef struct z_task_attr_t {
   size_t _0;
 } z_task_attr_t;
-/**
- * Returns system clock time point corresponding to the current time instant.
- */
-typedef struct z_time_t {
-  uint64_t t;
-} z_time_t;
 /**
  * A closure is a structure that contains all the elements for stateful, memory-leak-free callbacks:
  *

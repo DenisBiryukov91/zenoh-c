@@ -6,6 +6,7 @@ use std::sync::Arc;
 use std::{
     sync::{Condvar, Mutex, MutexGuard},
     thread::JoinHandle,
+    time::{Instant, SystemTime},
 };
 
 use zenoh::{
@@ -270,6 +271,11 @@ get_opaque_type_data!(Condvar, z_loaned_condvar_t);
 
 /// An owned Zenoh task.
 get_opaque_type_data!(Option<JoinHandle<()>>, z_owned_task_t);
+
+/// Monotonic clock.
+get_opaque_type_data!(Instant, z_clock_t);
+/// System clock.
+get_opaque_type_data!(SystemTime, z_time_t);
 
 /// An owned Zenoh-allocated hello message returned by a Zenoh entity to a scout message sent with `z_scout()`.
 get_opaque_type_data!(Option<Hello>, z_owned_hello_t);
