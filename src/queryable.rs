@@ -252,7 +252,7 @@ fn _declare_queryable_inner<'a, 'b>(
 /// @param callback: The callback function that will be called each time a matching query is received. Its ownership is passed to queryable.
 /// @param options: Options for the queryable.
 ///
-/// @return 0 in case of success, negative error code otherwise (in this case )
+/// @return 0 in case of success, negative error code otherwise.
 #[no_mangle]
 pub extern "C" fn z_declare_queryable(
     session: &z_loaned_session_t,

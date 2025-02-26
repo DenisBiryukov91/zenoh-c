@@ -2212,7 +2212,7 @@ z_result_t z_declare_querier(const struct z_loaned_session_t *session,
  * @param callback: The callback function that will be called each time a matching query is received. Its ownership is passed to queryable.
  * @param options: Options for the queryable.
  *
- * @return 0 in case of success, negative error code otherwise (in this case )
+ * @return 0 in case of success, negative error code otherwise.
  */
 ZENOHC_API
 z_result_t z_declare_queryable(const struct z_loaned_session_t *session,

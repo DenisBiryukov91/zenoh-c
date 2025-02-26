@@ -271,7 +271,7 @@ get_opaque_type_data!(Publisher<'static>, z_loaned_publisher_t);
 /// @brief An owned Zenoh matching listener.
 ///
 /// A listener that sends notifications when the [`MatchingStatus`] of a publisher or querier changes.
-/// Dropping the corresponding publisher, also drops matching listener.
+/// Dropping the corresponding publisher or a querier also drops matching listener's callback.
 get_opaque_type_data!(Option<MatchingListener<()>>, z_owned_matching_listener_t);
 
 /// An owned Zenoh <a href="https://zenoh.io/docs/manual/abstractions/#subscriber"> subscriber </a>.
