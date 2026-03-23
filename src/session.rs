@@ -273,13 +273,16 @@ pub extern "C" fn z_close(
         }
     }
 
-    match close_builder.wait() {
+    tracing::info!("z_close: closing session");
+    let res = match close_builder.wait() {
         Err(e) => {
             crate::report_error!("Error closing session: {}", e);
             result::Z_EGENERIC
         }
         Ok(_) => result::Z_OK,
-    }
+    };
+    tracing::info!("z_close: session closed with result {}", res);
+    res
 }
 
 /// Checks if zenoh session is closed.
@@ -294,7 +297,9 @@ pub extern "C" fn z_session_is_closed(session: &z_loaned_session_t) -> bool {
 /// Closes and invalidates the session.
 #[no_mangle]
 pub extern "C" fn z_session_drop(this_: &mut z_moved_session_t) {
+    tracing::info!("z_session_drop: closing session");
     let _ = this_.take_rust_type();
+    tracing::info!("z_session_drop: session closed");
 }
 
 #[cfg(feature = "unstable")]

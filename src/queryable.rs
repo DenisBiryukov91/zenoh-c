@@ -581,10 +581,12 @@ pub extern "C" fn z_query_accepts_replies(this_: &z_loaned_query_t) -> z_reply_k
 #[no_mangle]
 pub extern "C" fn z_undeclare_queryable(this_: &mut z_moved_queryable_t) -> result::z_result_t {
     if let Some(qable) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_queryable: undeclaring queryable");
         if let Err(e) = qable.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_EGENERIC;
         }
+        tracing::info!("z_undeclare_queryable: queryable undeclared");
     }
     result::Z_OK
 }

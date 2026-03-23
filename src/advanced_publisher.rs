@@ -531,10 +531,12 @@ pub extern "C" fn ze_undeclare_advanced_publisher(
     this_: &mut ze_moved_advanced_publisher_t,
 ) -> result::z_result_t {
     if let Some(p) = this_.take_rust_type() {
+        tracing::info!("ze_undeclare_advanced_publisher: undeclaring advanced publisher");
         if let Err(e) = p.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("ze_undeclare_advanced_publisher: advanced publisher undeclared");
     }
     result::Z_OK
 }

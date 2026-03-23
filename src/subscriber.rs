@@ -191,10 +191,12 @@ pub extern "C" fn z_internal_subscriber_check(this_: &z_owned_subscriber_t) -> b
 #[no_mangle]
 pub extern "C" fn z_undeclare_subscriber(this_: &mut z_moved_subscriber_t) -> result::z_result_t {
     if let Some(s) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_subscriber: undeclaring subscriber");
         if let Err(e) = s.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_EGENERIC;
         }
+        tracing::info!("z_undeclare_subscriber: subscriber undeclared");
     }
     result::Z_OK
 }

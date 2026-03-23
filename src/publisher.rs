@@ -436,10 +436,12 @@ pub extern "C" fn z_publisher_drop(this: &mut z_moved_publisher_t) {
 /// @return 0 in case of success, negative error code otherwise.
 pub extern "C" fn z_undeclare_publisher(this_: &mut z_moved_publisher_t) -> result::z_result_t {
     if let Some(p) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_publisher: undeclaring publisher");
         if let Err(e) = p.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("z_undeclare_publisher: publisher undeclared");
     }
     result::Z_OK
 }

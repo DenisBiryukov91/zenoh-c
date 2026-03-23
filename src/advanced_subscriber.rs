@@ -346,10 +346,12 @@ pub extern "C" fn ze_undeclare_advanced_subscriber(
     this_: &mut ze_moved_advanced_subscriber_t,
 ) -> result::z_result_t {
     if let Some(s) = this_.take_rust_type() {
+        tracing::info!("ze_undeclare_advanced_subscriber: undeclaring advanced subscriber");
         if let Err(e) = s.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_EGENERIC;
         }
+        tracing::info!("ze_undeclare_advanced_subscriber: advanced subscriber undeclared");
     }
     result::Z_OK
 }
@@ -403,10 +405,12 @@ pub extern "C" fn ze_undeclare_sample_miss_listener(
     this: &mut ze_moved_sample_miss_listener_t,
 ) -> result::z_result_t {
     if let Some(m) = this.take_rust_type() {
+        tracing::info!("ze_undeclare_sample_miss_listener: undeclaring sample miss listener");
         if let Err(e) = m.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("ze_undeclare_sample_miss_listener: sample miss listener undeclared");
     }
     result::Z_OK
 }

@@ -890,10 +890,12 @@ pub extern "C" fn z_undeclare_transport_events_listener(
     this_: &mut z_moved_transport_events_listener_t,
 ) -> result::z_result_t {
     if let Some(listener) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_transport_events_listener: undeclaring transport events listener");
         if let Err(e) = listener.undeclare().wait_callbacks().wait() {
             crate::report_error!("Failed to undeclare transport events listener: {}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("z_undeclare_transport_events_listener: transport events listener undeclared");
     }
     result::Z_OK
 }
@@ -1191,10 +1193,12 @@ pub extern "C" fn z_undeclare_link_events_listener(
     this_: &mut z_moved_link_events_listener_t,
 ) -> result::z_result_t {
     if let Some(listener) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_link_events_listener: undeclaring link events listener");
         if let Err(e) = listener.undeclare().wait_callbacks().wait() {
             crate::report_error!("Failed to undeclare link events listener: {}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("z_undeclare_link_events_listener: link events listener undeclared");
     }
     result::Z_OK
 }

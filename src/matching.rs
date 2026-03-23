@@ -62,10 +62,12 @@ pub extern "C" fn z_undeclare_matching_listener(
     this: &mut z_moved_matching_listener_t,
 ) -> result::z_result_t {
     if let Some(m) = this.take_rust_type() {
+        tracing::info!("z_undeclare_matching_listener: undeclaring matching listener");
         if let Err(e) = m.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("z_undeclare_matching_listener: matching listener undeclared");
     }
     result::Z_OK
 }

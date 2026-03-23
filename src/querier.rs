@@ -455,10 +455,12 @@ pub extern "C" fn z_querier_drop(this: &mut z_moved_querier_t) {
 #[no_mangle]
 pub extern "C" fn z_undeclare_querier(this_: &mut z_moved_querier_t) -> result::z_result_t {
     if let Some(q) = this_.take_rust_type() {
+        tracing::info!("z_undeclare_querier: undeclaring querier");
         if let Err(e) = q.undeclare().wait_callbacks().wait() {
             crate::report_error!("{}", e);
             return result::Z_ENETWORK;
         }
+        tracing::info!("z_undeclare_querier: querier undeclared");
     }
     result::Z_OK
 }
